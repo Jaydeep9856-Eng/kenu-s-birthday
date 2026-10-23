@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100b25">
+  <meta name="description" content="A little birthday surprise made with love for Kenuu.">
+  <title>Happy Birthday, Kenuu 🌹💝</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+  <nav class="topbar">
+    <a class="brand" href="#home" aria-label="Birthday home"><span class="brand-flower">✿</span> little moments</a>
+    <span class="top-note">A little surprise, just for you</span>
+  </nav>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span> TODAY IS ALL ABOUT YOU</div>
+        <h1>Happy Birthday,<br><span class="gradient-text">Kenuu</span><span class="emoji"> 🌹💝</span></h1>
+        <p class="hero-lead">To my favourite kind of human — the one who makes ordinary days feel a little more magical.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" id="surprise-btn">Open your surprise <span>↗</span></button>
+          <button class="gift-link" id="jump-gift-btn">There's a gift for you 🎁</button>
+          <a class="text-link" href="#memories">Explore our memories <span>↓</span></a>
+        </div>
+        <div class="signature"><span class="signature-line"></span><span>Made with love for my best friend</span></div>
+      </div>
+
+      <div class="cake-stage" aria-label="A decorative 3D birthday cake with candles">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="sparkle sparkle-one">✦</div><div class="sparkle sparkle-two">✧</div><div class="sparkle sparkle-three">✦</div>
+        <div class="cake-shadow"></div>
+        <div class="cake">
+          <div class="cake-top"></div>
+          <div class="cake-middle"><span class="icing-drip drip-one"></span><span class="icing-drip drip-two"></span><span class="icing-drip drip-three"></span><span class="icing-drip drip-four"></span><span class="icing-drip drip-five"></span></div>
+          <div class="cake-bottom"></div>
+          <div class="cake-plate"></div>
+          <div class="candle candle-one"><span class="flame"></span></div>
+          <div class="candle candle-two"><span class="flame"></span></div>
+          <div class="candle candle-three"><span class="flame"></span></div>
+          <div class="cake-heart">♡</div>
+        </div>
+        <div class="floating-note note-left">you deserve<br>all the good things <span>♡</span></div>
+        <div class="floating-note note-right"><span>✧</span> make a wish!</div>
+        <div class="stage-caption">A little cake, a lot of love.</div>
+      </div>
+      <div class="scroll-cue"><span></span> SCROLL TO FEEL THE LOVE</div>
+    </section>
+
+    <section class="wish-section section-wrap" id="letter">
+      <div class="section-kicker">A NOTE FROM THE HEART</div>
+      <div class="letter-card">
+        <div class="letter-decoration">“</div>
+        <div class="letter-content">
+          <h2>Dear Kenuu,</h2>
+          <p>Some people make life brighter just by being in it. You are one of those people. Thank you for the laughs, the random conversations, the support, and all the little moments that become the best memories.</p>
+          <p>On your birthday, I hope you get a thousand reasons to smile, the courage to chase every dream, and the kind of happiness that stays long after the candles go out. Never forget how special you are.</p>
+          <p>Keep shining, keep smiling, and keep being your wonderful self. The world is better with you in it. 🌷</p>
+          <div class="letter-signoff">Happy Birthday, bestie <span>♡</span></div>
+        </div>
+        <div class="letter-seal">K<span>✿</span></div>
+      </div>
+      <div class="tiny-note">P.S. Your friendship is one of life's sweetest gifts. 💝</div>
+    </section>
+
+    <section class="memories-section section-wrap" id="memories">
+      <div class="section-heading">
+        <div><div class="section-kicker">LITTLE MOMENTS, BIG FEELINGS</div><h2>Our memory corner<span class="heading-dot">.</span></h2></div>
+        <p>Every picture holds a feeling.<br>Swap these placeholders for your favourite photos.</p>
+      </div>
+      <div class="gallery-grid">
+        {% for item in gallery %}
+        <button class="memory-card memory-{{ loop.index }}" type="button" data-image="{{ url_for('static', filename='images/' + item.file) }}" data-caption="{{ item.caption }}" aria-label="View {{ item.caption }}">
+          <div class="memory-image">
+            <img src="{{ url_for('static', filename='images/' + item.file) }}" alt="{{ item.caption }}" loading="lazy">
+            <div class="image-fallback"><span class="fallback-icon">{% if loop.index == 1 %}✿{% elif loop.index == 2 %}♡{% elif loop.index == 3 %}✧{% else %}❀{% endif %}</span><span>Add your photo {{ "%02d"|format(loop.index) }}</span></div>
+            <span class="memory-number">{{ item.number }}</span><span class="expand-icon">↗</span>
+          </div>
+          <span class="memory-caption">{{ item.caption }}</span>
+        </button>
+        {% endfor %}
+      </div>
+      <div class="gallery-tip"><span>✦</span> Add photos to <code>static/images/</code> using the names <code>photo1.jpg</code> to <code>photo4.jpg</code>.</div>
+    </section>
+
+    <section class="gift-section section-wrap" id="gift">
+      <div class="section-kicker">A LITTLE SOMETHING, JUST FOR YOU</div>
+      <div class="gift-layout">
+        <div class="gift-copy">
+          <h2>Your bestie has a<br><span class="gradient-text">surprise gift!</span></h2>
+          <p>Because the best people deserve more than just a message. Tap the gift box and open a tiny bundle of birthday love made especially for you.</p>
+          <div class="gift-hint">✨ Psst… tap the box to unwrap it ✨</div>
+        </div>
+        <button class="gift-box-button" id="gift-box-button" aria-label="Open your birthday gift">
+          <span class="gift-glow"></span><span class="gift-box">
+            <span class="gift-lid"><span class="gift-bow"></span></span>
+            <span class="gift-base"></span><span class="gift-ribbon"></span>
+          </span>
+          <span class="gift-tap">TAP TO OPEN</span>
+        </button>
+      </div>
+      <div class="gift-reveal" id="gift-reveal" role="status" aria-live="polite">
+        <div class="gift-reveal-icon">💝</div>
+        <div class="section-kicker">YOUR LITTLE GIFT</div>
+        <h3>For my forever favourite bestie</h3>
+        <p>Kenuu, this gift is a reminder that you are loved, appreciated, and genuinely one of a kind. May your year be full of soft days, loud laughs, dream-come-true moments, and people who choose you every time. Your friendship is the gift I get to keep. 🌹</p>
+        <button class="primary-btn" id="gift-close-message">Keep this little note close ♡</button>
+      </div>
+    </section>
+
+    <section class="final-section section-wrap">
+      <div class="final-card">
+        <div class="final-stars">✦　✧　✦</div>
+        <div class="section-kicker">ONE LAST THING</div>
+        <h2>Make a wish,<br><span class="gradient-text">Kenuu.</span></h2>
+        <p>May this new chapter bring you unexpected joy, beautiful adventures, and people who love you as much as you deserve.</p>
+        <button class="wish-btn" id="wish-btn"><span>✧</span> Send a little birthday magic <span>✧</span></button>
+        <div class="wish-response" id="wish-response" role="status" aria-live="polite">The universe has your wish. Keep shining! ✨💝</div>
+        <div class="final-hearts">♡　♡　♡</div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Made for Kenuu 🌹💝</span><span>With friendship, sparkle & a little magic.</span></footer>
+
+  <div class="modal" id="photo-modal" role="dialog" aria-modal="true" aria-label="Photo preview">
+    <button class="modal-close" id="modal-close" aria-label="Close photo preview">×</button>
+    <img id="modal-image" src="" alt="">
+    <p id="modal-caption"></p>
+  </div>
+
+  <div class="toast" id="toast" role="status">Happy Birthday, Kenuu! 🌹💝</div>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
